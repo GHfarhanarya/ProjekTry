@@ -18,7 +18,7 @@
       </div>
       <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <mini-statistics-card
-          title="Today's Users"
+          title="Woiiiiiii"
           value="2,300"
           :percentage="{
             value: '+3%',
