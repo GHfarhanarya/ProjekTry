@@ -20,8 +20,8 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: "/tables",
-    name: "Tables",
+    path: "/user",
+    name: "User",
     component: Tables,
   },
   {

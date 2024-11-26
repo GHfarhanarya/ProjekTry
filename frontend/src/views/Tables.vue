@@ -15,13 +15,13 @@
 
 <script>
 import AuthorsTable from "./components/AuthorsTable";
-import ProjectsTable from "./components/ProjectsTable";
+// import ProjectsTable from "./components/ProjectsTable";
 
 export default {
-  name: "tables",
+  name: "user",
   components: {
     AuthorsTable,
-    ProjectsTable,
+    // ProjectsTable,
   },
 };
 </script>
