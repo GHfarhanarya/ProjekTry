@@ -47,18 +47,18 @@
                         class="my-4 mb-2"
                         color="info"
                         full-width
-                        >Sign in
+                        >Masuk
                       </soft-button>
                     </div>
                   </form>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
-                    elum memiliki akun?
+                    belum memiliki akun?
                     <router-link
                       :to="{ name: 'Sign Up' }"
                       class="text-info text-gradient font-weight-bold"
-                      >Sign up</router-link
+                      >Daftar</router-link
                     >
                   </p>
                 </div>

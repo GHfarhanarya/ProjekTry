@@ -12,7 +12,7 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse navText="User" :to="{ name: 'User' }">
+        <sidenav-collapse navText="Pengguna" :to="{ name: 'User' }">
           <template #icon>
             <office />
           </template>
@@ -36,13 +36,13 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <sidenav-collapse navText="RTL" :to="{ name: 'Rtl' }">
           <template #icon>
             <settings />
           </template>
         </sidenav-collapse>
-      </li>
+      </li> -->
       <li class="mt-3 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
@@ -59,14 +59,14 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse navText="Sign In" :to="{ name: 'Sign In' }">
+        <sidenav-collapse navText="Masuk" :to="{ name: 'Sign In' }">
           <template #icon>
             <document />
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse navText="Sign Up" :to="{ name: 'Sign Up' }">
+        <sidenav-collapse navText="Daftar" :to="{ name: 'Sign Up' }">
           <template #icon>
             <spaceship />
           </template>
@@ -83,12 +83,7 @@
       label="Documentation"
       icon="ni ni-diamond"
     />
-    <a
-      class="btn bg-gradient-success mt-4 w-100"
-      href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-pro?ref=vsud"
-      type="button"
-      >Upgrade to pro</a
-    >
+    
   </div>
 </template>
 <script>
@@ -101,7 +96,7 @@ import Box3d from "../../components/Icon/Box3d.vue";
 import CustomerSupport from "../../components/Icon/CustomerSupport.vue";
 import Document from "../../components/Icon/Document.vue";
 import Spaceship from "../../components/Icon/Spaceship.vue";
-import Settings from "../../components/Icon/Settings.vue";
+// import Settings from "../../components/Icon/Settings.vue";
 
 export default {
   name: "SidenavList",
@@ -125,7 +120,7 @@ export default {
     CustomerSupport,
     Document,
     Spaceship,
-    Settings,
+    // Settings,
   },
   methods: {
     getRoute() {
