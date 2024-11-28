@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
-import Tables from "@/views/Tables.vue";
+import Users from "@/views/Users.vue";
 import Billing from "@/views/Billing.vue";
 import VirtualReality from "@/views/VirtualReality.vue";
 import Profile from "@/views/Profile.vue";
@@ -22,7 +22,7 @@ const routes = [
   {
     path: "/user",
     name: "User",
-    component: Tables,
+    component: Users,
   },
   {
     path: "/billing",

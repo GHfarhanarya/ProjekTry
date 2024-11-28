@@ -2,25 +2,20 @@
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-12">
-        <authors-table />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <projects-table />
+        <user-table />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AuthorsTable from "./components/AuthorsTable";
+import UserTable from "./components/UserTable";
 // import ProjectsTable from "./components/ProjectsTable";
 
 export default {
   name: "user",
   components: {
-    AuthorsTable,
+    UserTable,
     // ProjectsTable,
   },
 };
