@@ -14,14 +14,14 @@
     <section>
       <div class="page-header min-vh-75">
         <div class="container">
-          <div class="row">
+          
             <div class="mx-auto col-xl-4 col-lg-5 col-md-6 d-flex flex-column">
               <div class="mt-8 card card-plain">
                 <div class="pb-0 card-header text-start">
-                  <h3 class="font-weight-bolder text-success text-gradient">
-                    Welcome back
+                  <h3 class="font-weight-bolder text-dark">
+                    Selamat Datang
                   </h3>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+                  <p class="mb-0">Silahkan masuk ke akun anda</p>
                 </div>
                 <div class="card-body">
                   <form role="form" class="text-start">
@@ -45,21 +45,20 @@
                     <div class="text-center">
                       <soft-button
                         class="my-4 mb-2"
-                        variant="gradient"
-                        color="success"
+                        color="info"
                         full-width
-                        >Sign in
+                        >Masuk
                       </soft-button>
                     </div>
                   </form>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
-                    Don't have an account?
+                    belum memiliki akun?
                     <router-link
                       :to="{ name: 'Sign Up' }"
-                      class="text-success text-gradient font-weight-bold"
-                      >Sign up</router-link
+                      class="text-info text-gradient font-weight-bold"
+                      >Daftar</router-link
                     >
                   </p>
                 </div>
@@ -69,7 +68,7 @@
               <div
                 class="top-0 oblique position-absolute h-100 d-md-block d-none me-n8"
               >
-                <div
+                <!-- <div
                   class="bg-cover oblique-image position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
                   :style="{
                     backgroundImage:
@@ -77,10 +76,10 @@
                       require('@/assets/img/curved-images/curved9.jpg') +
                       ')',
                   }"
-                ></div>
+                ></div> -->
               </div>
             </div>
-          </div>
+          
         </div>
       </div>
     </section>
