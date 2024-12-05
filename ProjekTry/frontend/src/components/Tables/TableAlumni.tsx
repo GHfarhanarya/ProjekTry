@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+
+
 const alumniData = [
   {
     name: "Ahmad Fauzi",
@@ -64,11 +68,10 @@ const AlumniTable = () => {
         {/* Isi Tabel */}
         {alumniData.map((alumni, key) => (
           <div
-            className={`grid grid-cols-6 gap-x-4 py-3 px-4 text-left text-sm ${
-              key === alumniData.length - 1
+            className={`grid grid-cols-6 gap-x-4 py-3 px-4 text-left text-sm ${key === alumniData.length - 1
                 ? ""
                 : "border-b border-stroke dark:border-strokedark"
-            }`}
+              }`}
             key={key}
           >
             <div className="truncate text-black dark:text-white">
@@ -84,11 +87,10 @@ const AlumniTable = () => {
               {alumni.program}
             </div>
             <div
-              className={`${
-                alumni.employmentStatus === "Bekerja"
+              className={`${alumni.employmentStatus === "Bekerja"
                   ? "text-green-500"
                   : "text-red-500"
-              }`}
+                }`}
             >
               {alumni.employmentStatus}
             </div>
@@ -96,24 +98,25 @@ const AlumniTable = () => {
               {/* Tombol Edit */}
               <button
                 className="rounded bg-blue-500 px-3 py-1 text-xs font-medium text-white hover:bg-blue-600"
-                // onClick={() => console.log(`Edit: ${alumni.name}`)}
+              // onClick={() => console.log(`Edit: ${alumni.name}`)}
               >
                 Edit
               </button>
               {/* Tombol Delete */}
               <button
                 className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white hover:bg-red-600"
-                // onClick={() => console.log(`Delete: ${alumni.name}`)}
+              // onClick={() => console.log(`Delete: ${alumni.name}`)}
               >
                 Delete
               </button>
               {/* Tombol Detail */}
-              <button
-                className="rounded bg-gray-500 px-3 py-1 text-xs font-medium text-white hover:bg-gray-600"
-                // onClick={() => console.log(`Detail: ${alumni.name}`)}
-              >
-                Detail
-              </button>
+              <Link href="/Detail">
+                <button
+                  className="rounded bg-gray-500 px-3 py-1 text-xs font-medium text-white hover:bg-gray-600"
+                >
+                  Detail
+                </button>
+              </Link>
             </div>
           </div>
         ))}

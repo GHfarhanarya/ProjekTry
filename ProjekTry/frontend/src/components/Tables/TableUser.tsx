@@ -30,7 +30,7 @@ const userData = [
     id: 4,
     name: "Emily Brown",
     email: "emily.brown@example.com",
-    role: "Moderator",
+    role: "Pimpinan",
     status: "Aktif",
     registrationDate: "2023-08-10",
   },
