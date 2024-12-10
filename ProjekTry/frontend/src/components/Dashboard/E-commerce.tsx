@@ -4,7 +4,7 @@ import React from "react";
 import ChartOne from "../Charts/ChartOne";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
-import TableOne from "../Tables/TableUser";
+import TableOne from "../../app/user/TableUser";
 import CardDataStats from "../CardDataStats";
 
 const MapOne = dynamic(() => import("@/components/Maps/MapOne"), {

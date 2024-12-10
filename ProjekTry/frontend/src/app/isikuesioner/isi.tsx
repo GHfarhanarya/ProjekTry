@@ -1,99 +1,48 @@
-"use client";
+import Link from "next/link";
 
-import React, { useState } from "react";
+const QuestionnaireList = () => {
+  const questionnaires = [
+    {
+      id: 1,
+      title: "Kuesioner Alumni",
+      description: "Isi kuesioner ini untuk membantu kami memahami perkembangan karir Anda.",
+      link: "/questionnaire/alumni",
+    },
+    {
+      id: 2,
+      title: "Kuesioner Kepuasan",
+      description: "Bagikan pengalaman Anda selama berkuliah untuk meningkatkan kualitas pendidikan.",
+      link: "/questionnaire/satisfaction",
+    },
+    {
+      id: 3,
+      title: "Kuesioner Lainnya",
+      description: "Isi kuesioner lainnya untuk memberikan masukan berharga bagi kami.",
+      link: "/questionnaire/other",
+    },
+  ];
 
-const Questionnaire = () => {
-    // State untuk menyimpan jawaban
-    const [answers, setAnswers] = useState({
-        question1: "",
-        question2: "",
-    });
-
-    // Handler perubahan jawaban
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setAnswers({ ...answers, [name]: value });
-    };
-
-    // Handler submit
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Jawaban:", answers);
-        alert("Kuesioner berhasil disimpan!");
-    };
-
-    return (
-        <div className="bg-gray-100 py-10 px-5 flex justify-center items-center">
-            <div className="max-w-2xl bg-white rounded-lg shadow-lg p-6 mx-auto">
-                <h2 className="text-2xl font-semibold text-center mb-6">Kuesioner</h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-2">
-                            1. Seberapa puas Anda dengan layanan kami?
-                        </label>
-                        <div className="space-y-2">
-                            <label className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name="question1"
-                                    value="Sangat Puas"
-                                    checked={answers.question1 === "Sangat Puas"}
-                                    onChange={handleChange}
-                                    className="mr-2"
-                                />
-                                Sangat Puas
-                            </label>
-                            <label className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name="question1"
-                                    value="Puas"
-                                    checked={answers.question1 === "Puas"}
-                                    onChange={handleChange}
-                                    className="mr-2"
-                                />
-                                Puas
-                            </label>
-                            <label className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name="question1"
-                                    value="Tidak Puas"
-                                    checked={answers.question1 === "Tidak Puas"}
-                                    onChange={handleChange}
-                                    className="mr-2"
-                                />
-                                Tidak Puas
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-2">
-                            2. Apa saran Anda untuk meningkatkan layanan kami?
-                        </label>
-                        <textarea
-                            name="question2"
-                            value={answers.question2}
-                            onChange={handleChange}
-                            rows={4}
-                            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-                            placeholder="Tulis saran Anda di sini..."
-                        />
-                    </div>
-
-                    <div className="text-center">
-                        <button
-                            type="submit"
-                            className="rounded bg-blue-500 px-6 py-2 text-white font-medium hover:bg-blue-600"
-                        >
-                            Kirim Jawaban
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+  return (
+    <div className="bg-gray-100 min-h-screen py-10 px-5 flex flex-col">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-8">Daftar Kuesioner</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+        {questionnaires.map((questionnaire) => (
+          <div
+            key={questionnaire.id}
+            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
+          >
+            <h2 className="text-lg font-semibold text-gray-800">{questionnaire.title}</h2>
+            <p className="text-sm text-gray-600 my-4">{questionnaire.description}</p>
+            <Link href={questionnaire.link}>
+              <button className="rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600">
+                Isi Kuesioner
+              </button>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
-export default Questionnaire;
+export default QuestionnaireList;

@@ -1,4 +1,3 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Questionnaire from "@/app/isikuesioner/isi";
@@ -12,8 +11,6 @@ export const metadata: Metadata = {
 const IsiKue = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Kuesioner" />
-
       <div className="flex flex-col gap-10">
         <Questionnaire />
       </div>
