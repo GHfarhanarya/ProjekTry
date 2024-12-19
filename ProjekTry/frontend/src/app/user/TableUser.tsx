@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import EditUser from "./edit";
+import CreateUser from "./create";
 
 // Data dummy untuk tabel baru
 // const userData = [
@@ -61,9 +62,12 @@ const TableUser = ({user}:{user: User}) => {
   // },[])
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-        Daftar Pengguna
-      </h4>
+      <div className="flex items-center justify-between mb-6">
+        <h4 className="text-xl font-semibold text-black dark:text-white">
+          Daftar Pengguna
+        </h4>
+        <CreateUser user={user}/>
+      </div>
 
       <div className="flex flex-col">
         {/* Header */}
@@ -112,6 +116,7 @@ const TableUser = ({user}:{user: User}) => {
             </div>
 
             <div className="flex items-center justify-center gap-2 p-2.5 xl:p-5">
+              
               <EditUser user={user}/>
               <button className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600">
                 Hapus

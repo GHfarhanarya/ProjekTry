@@ -21,3 +21,16 @@ model User {
   role      String
   createdAt DateTime @default(now())
 }
+
+model Alumni {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique
+  phone          String   @unique
+  address        String?
+  graduationYear Int
+  programStudy   String
+  employmentStatus String // Misalnya: Bekerja, Wiraswasta, Studi Lanjut, Belum Bekerja
+  createdAt      DateTime @default(now())
+}
+

@@ -1,19 +1,23 @@
-import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-
 
 type formUser = {
     name: string;
     email: string;
     password: string;
     role: string;
-}
-export default function EditUser({ user }: { user: User }) {
-    const router = useRouter()
+};
+
+export default function CreateUser() {
+    const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [form, setForm] = useState<formUser>({ name: user.name, email: user.email, password: "", role: user.role });
+    const [form, setForm] = useState<formUser>({
+        name: "",
+        email: "",
+        password: "",
+        role: "viewer", // Default role
+    });
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
@@ -21,20 +25,25 @@ export default function EditUser({ user }: { user: User }) {
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setForm({
             ...form,
-            [e.target.name]: e.target.value
-        })
+            [e.target.name]: e.target.value,
+        });
     };
 
     const handleSave = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`/api/users/${user.id}`, form, { headers: { "Content-Type": "application/json" } });
-            handleCloseModal();
-            router.refresh()
+            const res = await axios.post(`/api/users`, form, {
+                headers: { "Content-Type": "application/json" },
+            });
 
+            if (res.status === 201) {
+                alert("User berhasil dibuat!");
+                handleCloseModal();
+                router.refresh(); // Refresh halaman untuk memuat data baru
+            }
         } catch (error) {
-            console.log(error);
-
+            console.error(error);
+            alert("Terjadi kesalahan saat membuat user.");
         }
     };
 
@@ -43,9 +52,9 @@ export default function EditUser({ user }: { user: User }) {
             {/* Button to Open Modal */}
             <button
                 onClick={handleOpenModal}
-                className="rounded bg-yellow-500 px-3 py-1 text-white hover:bg-yellow-600"
+                className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600"
             >
-                Edit
+                Create User
             </button>
 
             {/* Modal */}
@@ -54,7 +63,7 @@ export default function EditUser({ user }: { user: User }) {
                     <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                         {/* Modal Header */}
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-lg font-semibold text-gray-800">Edit User</h2>
+                            <h2 className="text-lg font-semibold text-gray-800">Create User</h2>
                             <button
                                 onClick={handleCloseModal}
                                 className="text-gray-500 hover:text-gray-700"
@@ -74,7 +83,7 @@ export default function EditUser({ user }: { user: User }) {
                                     type="text"
                                     id="name"
                                     name="name"
-                                    onChange={e => handleChange(e)}
+                                    onChange={handleChange}
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Enter name"
                                 />
@@ -89,7 +98,7 @@ export default function EditUser({ user }: { user: User }) {
                                     type="email"
                                     id="email"
                                     name="email"
-                                    onChange={e => handleChange(e)}
+                                    onChange={handleChange}
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Enter email"
                                 />
@@ -97,13 +106,14 @@ export default function EditUser({ user }: { user: User }) {
 
                             <div className="mb-4">
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Change Password
+                                    Password
                                 </label>
                                 <input
                                     type="password"
+                                    value={form.password}
                                     id="password"
                                     name="password"
-                                    onChange={e => handleChange(e)}
+                                    onChange={handleChange}
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                     placeholder="Enter password"
                                 />
@@ -116,7 +126,7 @@ export default function EditUser({ user }: { user: User }) {
                                 <select
                                     value={form.role}
                                     name="role"
-                                    onChange={e => handleChange(e)}
+                                    onChange={handleChange}
                                     id="role"
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                 >
@@ -134,8 +144,11 @@ export default function EditUser({ user }: { user: User }) {
                                 >
                                     Cancel
                                 </button>
-                                <button type="submit" className="rounded bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600">
-                                    Save
+                                <button
+                                    type="submit"
+                                    className="rounded bg-blue-500 px-3 py-1 text-sm font-medium text-white hover:bg-blue-600"
+                                >
+                                    Create
                                 </button>
                             </div>
                         </form>
