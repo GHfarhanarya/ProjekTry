@@ -1,12 +1,17 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 type formUser = {
     name: string;
     email: string;
-    password: string;
+    password: string | null;
     role: string;
+};
+
+type Alumni = {
+    id: number;
+    email: string;
 };
 
 export default function CreateUser() {
@@ -15,12 +20,28 @@ export default function CreateUser() {
     const [form, setForm] = useState<formUser>({
         name: "",
         email: "",
-        password: "",
+        password: null,
         role: "viewer", // Default role
     });
+    const [alumniList, setAlumniList] = useState<Alumni[]>([]);
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
+
+    const fetchAlumni = async () => {
+        try {
+            const res = await axios.get("/api/alumnis/get"); // Endpoint untuk mendapatkan daftar alumni
+            if (res.status === 200) {
+                setAlumniList(res.data.data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch alumni:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (isModalOpen) fetchAlumni(); // Ambil data alumni ketika modal dibuka
+    }, [isModalOpen]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setForm({
@@ -91,17 +112,24 @@ export default function CreateUser() {
 
                             <div className="mb-4">
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                    Email
+                                    Email (from Alumni)
                                 </label>
-                                <input
+                                <select
                                     value={form.email}
-                                    type="email"
                                     id="email"
                                     name="email"
                                     onChange={handleChange}
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                                    placeholder="Enter email"
-                                />
+                                >
+                                    <option value="" disabled>
+                                        Select an alumni email
+                                    </option>
+                                    {alumniList.map((alumni) => (
+                                        <option key={alumni.id} value={alumni.email}>
+                                            {alumni.email}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className="mb-4">
@@ -110,7 +138,7 @@ export default function CreateUser() {
                                 </label>
                                 <input
                                     type="password"
-                                    value={form.password}
+                                    value={form.password || ""}
                                     id="password"
                                     name="password"
                                     onChange={handleChange}
@@ -131,7 +159,7 @@ export default function CreateUser() {
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                                 >
                                     <option value="admin">Admin</option>
-                                    <option value="editor">Editor</option>
+                                    <option value="alumni">Alumni</option>
                                     <option value="viewer">Viewer</option>
                                 </select>
                             </div>

@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
         const { name, email, password, role } = await req.json();
 
         // Validasi input
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !role) {
             return NextResponse.json(
                 {
                     success: false,
@@ -55,14 +55,17 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        const alumni = await db.alumni.findFirst({where: {email}})
+
         // Tambahkan user baru
-        const hashedPassword = await bcrypt.hash(password, 10); // Pastikan bcrypt diimport
+        const hashedPassword = await bcrypt.hash((password ||"123456"), 10); // Pastikan bcrypt diimport
         const newUser = await db.user.create({
             data: {
                 email,
                 name,
                 password: hashedPassword, // Simpan password yang di-hash
                 role,
+                alumniId: alumni?.id
             },
         });
 
@@ -70,7 +73,7 @@ export async function POST(req: NextRequest) {
             success: true,
             msg: "Berhasil menambahkan data",
             data: newUser,
-        });
+        },{status:201});
     } catch (error: any) {
         console.error("Error during user creation:", error);
         return NextResponse.json(
