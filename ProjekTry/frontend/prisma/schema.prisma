@@ -16,6 +16,8 @@ model User {
   alumniId  Int?     @unique // Foreign key untuk Alumni (opsional)
   alumni    Alumni?  @relation(fields: [alumniId], references: [id]) // Relasi ke Alumni
   createdAt DateTime @default(now())
+
+  Response Response[]
 }
 
 model Alumni {
@@ -29,4 +31,37 @@ model Alumni {
   employmentStatus String // Misalnya: Bekerja, Wiraswasta, Studi Lanjut, Belum Bekerja
   createdAt      DateTime @default(now())
   users          User[]   // Relasi ke User (satu Alumni bisa memiliki banyak User)
+}
+
+model Questionnaire {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  isActive    Boolean      @default(true)
+  archived    Boolean      @default(false)
+  questions   Question[]   @relation("QuestionnaireQuestions")
+  responses   Response[]   @relation("QuestionnaireResponses")
+}
+
+model Question {
+  id             Int          @id @default(autoincrement())
+  questionnaire  Questionnaire @relation("QuestionnaireQuestions", fields: [questionnaireId], references: [id])
+  questionnaireId Int
+  text           String
+  type           String        // "text", "multiple-choice", etc.
+  options        String?       // JSON or comma-separated options for multiple-choice
+  responses      Response[]    @relation("QuestionResponses")
+}
+
+model Response {
+  id             Int          @id @default(autoincrement())
+  userId         Int?         // Optional, in case user data is stored
+  questionnaire  Questionnaire @relation("QuestionnaireResponses", fields: [questionnaireId], references: [id])
+  questionnaireId Int
+  question       Question      @relation("QuestionResponses", fields: [questionId], references: [id])
+  questionId     Int
+  answer         String
+  user           User?         @relation(fields: [userId], references: [id]) // Optional relation to User model
 }

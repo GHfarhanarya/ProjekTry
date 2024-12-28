@@ -3,6 +3,9 @@
 import { Alumni } from "@prisma/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DeleteAlumni from "./delete";
+import EditAlumni from "./edit";
+import CreateAlumni from "./create";
 // import EditAlumni from "./edit"; // Komponen EditAlumni
 // import DeleteAlumni from "./delete"; // Komponen DeleteAlumni
 // import CreateAlumni from "./create"; // Komponen CreateAlumni
@@ -16,7 +19,7 @@ const TableAlumni = ({ alumni }: { alumni: Alumni[] }) => {
         <h4 className="text-xl font-semibold text-black dark:text-white">
           Daftar Alumni
         </h4>
-        {/* <CreateAlumni alumni={alumniData} /> */}
+        <CreateAlumni alumni={alumniData} />
       </div>
 
       <div className="flex flex-col">
@@ -87,9 +90,9 @@ const TableAlumni = ({ alumni }: { alumni: Alumni[] }) => {
 
             <div className="flex items-center justify-center gap-2 p-2.5 xl:p-5">
               {/* Tombol Edit */}
-              {/* <EditAlumni alumni={alumni} /> */}
+              <EditAlumni alumni={alumni} />
               {/* Tombol Delete */}
-              {/* <DeleteAlumni alumni={alumni} /> */}
+              <DeleteAlumni alumni={alumni} />
             </div>
           </div>
         ))}

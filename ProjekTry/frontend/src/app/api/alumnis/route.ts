@@ -49,6 +49,8 @@ export async function POST(req: NextRequest) {
             }, { status: 400 });
         }
 
+        const convertGraduateYear= Number(graduationYear)
+
         // Buat entri baru di tabel Alumni
         const newAlumni = await db.alumni.create({
             data: {
@@ -56,7 +58,7 @@ export async function POST(req: NextRequest) {
                 email, 
                 phone, 
                 address, 
-                graduationYear, 
+                graduationYear: convertGraduateYear, 
                 programStudy, 
                 employmentStatus
             }
@@ -73,7 +75,8 @@ export async function POST(req: NextRequest) {
         console.error('Error saat menambahkan data alumni:', error);
         return NextResponse.json({
             success: false,
-            msg: "Terjadi kesalahan saat menambahkan data alumni"
+            msg: "Terjadi kesalahan saat menambahkan data alumni",
+            error: error.message
         }, { status: 500 });
     }
 }
