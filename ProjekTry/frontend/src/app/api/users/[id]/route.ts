@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../config";
+import bcrypt from "bcrypt";
 
 export async function PUT(req:NextRequest) {
     try {
@@ -13,10 +14,10 @@ export async function PUT(req:NextRequest) {
         //         msg: "Harap isi seluruh input!"
         //     }, { status: 400 })
         // }
-
+        const hashedPassword = await bcrypt.hash((password ||"123456"), 10);
         const editUser = await db.user.update({
             data: {
-                email, name, password, role
+                email, name, password: hashedPassword, role
             },
             where:{
                 id: Number(id)

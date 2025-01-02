@@ -50,6 +50,9 @@ const TableKuesioner = ({ kuesioner }: { kuesioner: Questionnaire[] }) => {
           <div className="p-2.5 text-center xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">Arsip</h5>
           </div>
+          <div className="p-2.5 text-center xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Aksi</h5>
+          </div>
         </div>
 
         {/* Isi Tabel */}
@@ -75,11 +78,11 @@ const TableKuesioner = ({ kuesioner }: { kuesioner: Questionnaire[] }) => {
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{kuesioner.isActive? <span className="px-2 py-1 bg-green-600 text-white rounded-lg text-sm">Aktif</span> : <span className="px-2 py-1 bg-red-600 text-white rounded-lg text-sm">Tidak Aktif</span>}</p>
+              <p className="text-black dark:text-white">{kuesioner.isActive? <span className="px-2 py-1 bg-green-100 text-green-500 rounded-lg text-sm">Aktif</span> : <span className="px-2 py-1 bg-red-100 text-red-500 rounded-lg text-sm">Tidak Aktif</span>}</p>
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{kuesioner.archived?<span className="px-2 py-1 bg-red-600 text-white rounded-lg text-sm">Diarsipkan</span>:<span className="px-2 py-1 bg-green-600 text-white rounded-lg text-sm">Tersedia</span>}</p>
+              <p className="text-black dark:text-white">{kuesioner.archived?<span className="px-2 py-1 bg-red-100 text-red-500 rounded-lg text-sm">Diarsipkan</span>:<span className="px-2 py-1 bg-green-100 text-green-500 rounded-lg text-sm">Tersedia</span>}</p>
             </div>
 
             <div className="flex items-center justify-center gap-2 p-2.5 xl:p-5">
