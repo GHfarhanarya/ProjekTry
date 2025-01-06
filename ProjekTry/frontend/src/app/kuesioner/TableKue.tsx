@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CreateKuesioner from "./create";
+import EditKuesioner from "./edit";
 
 const TableKuesioner = ({ kuesioner }: { kuesioner: Questionnaire[] }) => {
   const kuesioners: Questionnaire[]= kuesioner||[];
@@ -87,8 +88,8 @@ const TableKuesioner = ({ kuesioner }: { kuesioner: Questionnaire[] }) => {
 
             <div className="flex items-center justify-center gap-2 p-2.5 xl:p-5">
 
-              {/* <EditKuesioner kuesioner={kuesioner} />
-              <DeleteKuesioner kuesioner={kuesioner} /> */}
+              <EditKuesioner quesioner={kuesioner} />
+              {/* <DeleteKuesioner kuesioner={kuesioner} /> */}
             </div>
           </div>
         ))}

@@ -33,7 +33,7 @@ model Alumni {
   users          User[]   // Relasi ke User (satu Alumni bisa memiliki banyak User)
 }
 
-model Questionnaire {
+model Questionnaire {  
   id          Int          @id @default(autoincrement())
   title       String
   description String?

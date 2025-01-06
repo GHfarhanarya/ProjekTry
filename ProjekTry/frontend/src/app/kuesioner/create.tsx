@@ -55,7 +55,7 @@ export default function CreateKuesioner() {
             {/* Button to Open Modal */}
             <button
                 onClick={handleOpenModal}
-                className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600"
+                className="rounded bg-gradient-to-r from-blue-500 to-blue-700 px-3 py-1 text-white hover:bg-green-600"
             >
                 Tambah Kuesioner
             </button>

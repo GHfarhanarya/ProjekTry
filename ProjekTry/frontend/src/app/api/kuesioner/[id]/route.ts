@@ -2,82 +2,79 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../config";
 
-// Mengedit kuesioner berdasarkan ID
-export async function PUT(request: NextRequest) {
+export async function PUT(req: NextRequest) {
     try {
-        const { id, title, description, isActive, archived } = await request.json();
+        const id = req.nextUrl.pathname.split("/").pop();  // Ambil ID dari URL
+        const { title, description, isActive, archived } = await req.json();
 
-        if (!id || !title || !description || isActive === undefined || archived === undefined) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    msg: "Harap isi seluruh input termasuk ID!",
-                },
-                { status: 400 }
-            );
+        // Mencari kuesioner berdasarkan ID
+        const existingKuesioner = await db.questionnaire.findUnique({
+            where: { id: Number(id) },
+        });
+
+        if (!existingKuesioner) {
+            return NextResponse.json({
+                success: false,
+                msg: "Kuesioner tidak ditemukan!",
+            }, { status: 404 });
         }
 
+        // Update data kuesioner hanya dengan data yang ada
         const updatedKuesioner = await db.questionnaire.update({
-            where: { id },
+            where: { id: Number(id) },
             data: {
-                title,
-                description,
-                isActive: isActive === "true" ? true : false,
-                archived: archived === "true" ? true : false,
+                title: title || existingKuesioner.title,       // Jika tidak ada perubahan, tetap menggunakan nilai lama
+                description: description || existingKuesioner.description,
+                isActive: isActive !== undefined ? isActive === "true" : existingKuesioner.isActive,
+                archived: archived !== undefined ? archived === "true" : existingKuesioner.archived,
             },
         });
 
         return NextResponse.json({
             success: true,
-            msg: "Berhasil Mengupdate Kuesioner",
+            msg: "Berhasil mengubah data kuesioner",
             data: updatedKuesioner,
-        });
+        }, { status: 200 });
     } catch (error: any) {
-        console.error("Error during updating questionnaire:", error);
-        return NextResponse.json(
-            {
-                success: false,
-                msg: "Internal server error",
-                error: error.message,
-            },
-            { status: 500 }
-        );
+        return NextResponse.json({
+            success: false,
+            msg: "Internal server error",
+            error: error.message,
+        }, { status: 500 });
     }
 }
 
-// Menghapus kuesioner berdasarkan ID
-export async function DELETE(request: NextRequest) {
+export async function DELETE(req: NextRequest) {
     try {
-        const { id } = await request.json();
+        const id = req.nextUrl.pathname.split("/").pop();  // Ambil ID dari URL
 
-        if (!id) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    msg: "ID kuesioner diperlukan!",
-                },
-                { status: 400 }
-            );
+        // Cek apakah kuesioner ada
+        const existingKuesioner = await db.questionnaire.findUnique({
+            where: { id: Number(id) },
+        });
+
+        if (!existingKuesioner) {
+            return NextResponse.json({
+                success: false,
+                msg: "Kuesioner tidak ditemukan!",
+            }, { status: 404 });
         }
 
+        // Hapus kuesioner
         const deletedKuesioner = await db.questionnaire.delete({
-            where: { id },
+            where: { id: Number(id) },
         });
 
         return NextResponse.json({
             success: true,
-            msg: "Berhasil Menghapus Kuesioner",
-            data: deletedKuesioner,
-        });
+            msg: "Berhasil menghapus kuesioner",
+            data: deletedKuesioner.title,  // Menampilkan nama kuesioner yang dihapus
+        }, { status: 200 });
     } catch (error: any) {
-        console.error("Error during deleting questionnaire:", error);
-        return NextResponse.json(
-            {
-                success: false,
-                msg: "Internal server error",
-                error: error.message,
-            },
-            { status: 500 }
-        );
+        return NextResponse.json({
+            success: false,
+            msg: "Internal server error",
+            error: error.message,
+        }, { status: 500 });
     }
 }
